@@ -33,6 +33,11 @@
 
     <!-- Plugins versions -->
     <maven.plugins.checkstyle.version>3.4.0</maven.plugins.checkstyle.version>
+    <maven.plugins.jacoco.version>0.8.12</maven.plugins.jacoco.version>
+
+    <!-- SonarCloud -->
+    <sonar.organization>lengors-github</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
   </properties>
 
@@ -64,6 +69,31 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven.plugins.checkstyle.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${maven.plugins.jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <formats>
+                <format>XML</format>
+              </formats>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>
