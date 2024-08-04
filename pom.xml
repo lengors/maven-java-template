@@ -31,6 +31,9 @@
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
 
+    <!-- Plugins versions -->
+    <maven.plugins.checkstyle.version>3.4.0</maven.plugins.checkstyle.version>
+
   </properties>
 
   <dependencies>
@@ -38,6 +41,14 @@
 
   <build>
     <plugins>
+
+      <!-- Default checkstyle configuration is fine -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven.plugins.checkstyle.version}</version>
+      </plugin>
+
     </plugins>
   </build>
 </project>
