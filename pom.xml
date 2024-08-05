@@ -31,9 +31,13 @@
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
 
-    <!-- Plugins versions -->
-    <maven.plugins.checkstyle.version>3.4.0</maven.plugins.checkstyle.version>
-    <maven.plugins.jacoco.version>0.8.12</maven.plugins.jacoco.version>
+    <!-- Dependency and plugins versions -->
+    <maven.checkerframework.version>3.46.0</maven.checkerframework.version>
+    <maven.checkstyle.version>3.4.0</maven.checkstyle.version>
+    <maven.compiler.version>3.13.0</maven.compiler.version>
+    <maven.mockito.version>5.12.0</maven.mockito.version>
+    <maven.jacoco.version>0.8.12</maven.jacoco.version>
+    <maven.junit.version>5.10.3</maven.junit.version>
 
     <!-- SonarCloud -->
     <sonar.organization>lengors-github</sonar.organization>
@@ -46,7 +50,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.10.3</version>
+        <version>${maven.junit.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -58,12 +62,24 @@
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker-qual</artifactId>
-      <version>3.46.0</version>
+      <version>${maven.checkerframework.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${maven.mockito.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${maven.mockito.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -75,13 +91,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven.plugins.checkstyle.version}</version>
+        <version>${maven.checkstyle.version}</version>
       </plugin>
 
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${maven.plugins.jacoco.version}</version>
+        <version>${maven.jacoco.version}</version>
         <executions>
           <execution>
             <id>prepare-agent</id>
@@ -118,14 +134,14 @@
         <plugins>
           <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.11.0</version>
+            <version>${maven.compiler.version}</version>
             <configuration>
               <fork>true</fork> <!-- Must fork or else JVM arguments are ignored. -->
               <annotationProcessorPaths>
                 <path>
                   <groupId>org.checkerframework</groupId>
                   <artifactId>checker</artifactId>
-                  <version>3.46.0</version>
+                  <version>${maven.checkerframework.version}</version>
                 </path>
               </annotationProcessorPaths>
               <annotationProcessors>
