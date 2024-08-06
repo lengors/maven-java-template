@@ -151,6 +151,12 @@
                   <artifactId>checker</artifactId>
                   <version>${maven.checkerframework.version}</version>
                 </path>
+
+                <path>
+                  <groupId>org.projectlombok</groupId>
+                  <artifactId>lombok</artifactId>
+                  <version>${maven.lombok.version}</version>
+                </path>
               </annotationProcessorPaths>
               <annotationProcessors>
                 <!-- Add all the checkers you want to enable here -->
