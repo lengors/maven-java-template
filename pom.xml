@@ -42,6 +42,7 @@
     <maven.jacoco.version>0.8.12</maven.jacoco.version>
     <maven.source.version>3.3.1</maven.source.version>
     <maven.junit.version>5.10.3</maven.junit.version>
+    <maven.gpg.version>3.2.4</maven.gpg.version>
     <maven.jar.version>3.4.2</maven.jar.version>
 
     <!-- SonarCloud -->
@@ -130,6 +131,24 @@
             <id>attach-javadocs</id>
             <goals>
               <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>${maven.gpg.version}</version>
+        <configuration>
+          <keyname>${MAVEN_GPG_KEYNAME}</keyname>
+        </configuration>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
             </goals>
           </execution>
         </executions>
