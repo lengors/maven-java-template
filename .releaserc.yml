@@ -18,4 +18,4 @@ plugins:
   - - "@semantic-release/git"
     - assets:
       - CHANGELOG.md
-      message: "🔖 Update `package.json` to ${nextRelease.version} [skip release]\n\n${nextRelease.notes}"
+      message: "🔖 Update `package.json` to `${nextRelease.version}` [skip release]\n\n${nextRelease.notes}"
