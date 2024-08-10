@@ -7,7 +7,7 @@
 
   <groupId>io.github.lengors</groupId>
   <artifactId>maven-java-template</artifactId>
-  <version>0.0.0-local.0</version>
+  <version>1.0.0-alpha.1</version>
   <name>maven-java-template</name>
   <url>https://github.com/lengors/maven-java-template</url>
   <description>Template repository for maven projects written in java.</description>
@@ -22,6 +22,13 @@
   <scm>
     <url>https://github.com/lengors/maven-java-template</url>
   </scm>
+
+  <licenses>
+    <license>
+      <name>The Unlicense</name>
+      <url>https://unlicense.org/UNLICENSE</url>
+    </license>
+  </licenses>
 
   <properties>
     <!-- Project general settings -->
