@@ -42,7 +42,6 @@
     <maven.central-publishing.version>0.5.0</maven.central-publishing.version>
     <maven.checkerframework.version>3.46.0</maven.checkerframework.version>
     <maven.checkstyle.version>3.4.0</maven.checkstyle.version>
-    <maven.delombok.version>1.18.20.0</maven.delombok.version>
     <maven.compiler.version>3.13.0</maven.compiler.version>
     <maven.assembly.version>3.7.1</maven.assembly.version>
     <maven.mockito.version>5.12.0</maven.mockito.version>
@@ -107,9 +106,6 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>target/generated-sources/delombok</sourceDirectory>
-    <testSourceDirectory>target/generated-test-sources/delombok</testSourceDirectory>
-
     <plugins>
 
       <!-- Default checkstyle configuration is fine -->
@@ -118,48 +114,8 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven.checkstyle.version}</version>
         <configuration>
-          <sourceDirectories>
-            <sourceDirectory>src/main/java</sourceDirectory>
-            <sourceDirectory>src/test/java</sourceDirectory>
-          </sourceDirectories>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok-maven-plugin</artifactId>
-        <version>${maven.delombok.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${maven.lombok.version}</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>delombok</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>delombok</goal>
-            </goals>
-            <configuration>
-              <addOutputDirectory>false</addOutputDirectory>
-              <sourceDirectory>src/main/java</sourceDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>test-delombok</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>testDelombok</goal>
-            </goals>
-            <configuration>
-              <addOutputDirectory>false</addOutputDirectory>
-              <sourceDirectory>src/test/java</sourceDirectory>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
 
       <plugin>
@@ -260,11 +216,18 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>${maven.compiler.version}</version>
             <configuration>
               <fork>true</fork> <!-- Must fork or else JVM arguments are ignored. -->
               <annotationProcessorPaths>
+                <path>
+                  <groupId>org.projectlombok</groupId>
+                  <artifactId>lombok</artifactId>
+                  <version>${maven.lombok.version}</version>
+                </path>
+                
                 <path>
                   <groupId>org.checkerframework</groupId>
                   <artifactId>checker</artifactId>
@@ -274,6 +237,15 @@
               <annotationProcessors>
                 <!-- Add all the checkers you want to enable here -->
                 <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+                <annotationProcessor>org.checkerframework.checker.resourceleak.ResourceLeakChecker</annotationProcessor>
+
+                <!--
+                  NOTE: Lombok's annotation processors have to appear AFTER the Checker
+                  Framework processors.  This is extremely confusing, because Lombok's
+                  modifications have to happen FIRST.
+                -->
+                <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+                <annotationProcessor>lombok.launch.AnnotationProcessorHider$ClaimingProcessor</annotationProcessor>
               </annotationProcessors>
               <compilerArgs>
                 <arg>-Xmaxerrs</arg>
