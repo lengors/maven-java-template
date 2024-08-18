@@ -2,6 +2,8 @@ package io.github.lengors.maven_java_template;
 
 /**
  * Example for project template.
+ *
+ * @author lengors
  */
 public final class Example {
   private Example() {
