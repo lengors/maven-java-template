@@ -6,6 +6,8 @@ import org.junit.platform.commons.util.ReflectionUtils;
 
 /**
  * Example test suite for {@link Example}.
+ *
+ * @author lengors
  */
 public class ExampleTest {
   /**
