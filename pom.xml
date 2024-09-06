@@ -107,6 +107,7 @@
         <version>${maven.checkstyle.version}</version>
         <configuration>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <configLocation>checkstyle.xml</configLocation>
         </configuration>
       </plugin>
 
