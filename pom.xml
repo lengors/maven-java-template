@@ -46,7 +46,6 @@
     <maven.assembly.version>3.7.1</maven.assembly.version>
     <maven.mockito.version>5.12.0</maven.mockito.version>
     <maven.javadoc.version>3.8.0</maven.javadoc.version>
-    <maven.lombok.version>1.18.34</maven.lombok.version>
     <maven.jacoco.version>0.8.12</maven.jacoco.version>
     <maven.source.version>3.3.1</maven.source.version>
     <maven.junit.version>5.10.3</maven.junit.version>
@@ -80,13 +79,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${maven.lombok.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
@@ -115,6 +107,7 @@
         <version>${maven.checkstyle.version}</version>
         <configuration>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <configLocation>checkstyle.xml</configLocation>
         </configuration>
       </plugin>
 
@@ -137,6 +130,16 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven.javadoc.version}</version>
+        <configuration>
+          <detectLinks>true</detectLinks>
+          <dependencyLinks>
+            <dependencyLink>
+              <groupId>org.checkerframework</groupId>
+              <artifactId>checker-qual</artifactId>
+              <url>https://checkerframework.org/api</url>
+            </dependencyLink>
+          </dependencyLinks>
+        </configuration>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -223,12 +226,6 @@
               <fork>true</fork> <!-- Must fork or else JVM arguments are ignored. -->
               <annotationProcessorPaths>
                 <path>
-                  <groupId>org.projectlombok</groupId>
-                  <artifactId>lombok</artifactId>
-                  <version>${maven.lombok.version}</version>
-                </path>
-                
-                <path>
                   <groupId>org.checkerframework</groupId>
                   <artifactId>checker</artifactId>
                   <version>${maven.checkerframework.version}</version>
@@ -238,14 +235,6 @@
                 <!-- Add all the checkers you want to enable here -->
                 <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
                 <annotationProcessor>org.checkerframework.checker.resourceleak.ResourceLeakChecker</annotationProcessor>
-
-                <!--
-                  NOTE: Lombok's annotation processors have to appear AFTER the Checker
-                  Framework processors.  This is extremely confusing, because Lombok's
-                  modifications have to happen FIRST.
-                -->
-                <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
-                <annotationProcessor>lombok.launch.AnnotationProcessorHider$ClaimingProcessor</annotationProcessor>
               </annotationProcessors>
               <compilerArgs>
                 <arg>-Xmaxerrs</arg>
