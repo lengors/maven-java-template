@@ -4,7 +4,7 @@ Welcome to **maven-java-template**, a flexible starting point for creating Maven
 
 ## Features
 
-- **Dependencies**: Preconfigured with Lombok, Checker Framework, Mockito, and JUnit.
+- **Dependencies**: Preconfigured with Checker Framework, Mockito, and JUnit.
 - **Plugins**: Includes Checkstyle, Source, Javadoc, GPG, Central Publishing, JaCoCo, Checker Framework, Jar, and Assembly.
 - **Branching Strategy**: Four branches (`main`, `beta`, `alpha`, and `dev`) to manage different stages of development and release.
 - **CI/CD Pipelines**: Automated checks for code style, build, testing, static code analysis, and publishing to Maven Central.
